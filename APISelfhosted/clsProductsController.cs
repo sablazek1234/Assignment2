@@ -9,9 +9,9 @@ namespace APISelfhosted
 {
     class clsProductsController
     {
-        public List<string> GetArtistNames()
+        public List<string> GetCategory()
         {
-            DataTable lcResult = clsDBConnection.GetDataTable("SELECT Name FROM Products", null);
+            DataTable lcResult = clsDBConnection.GetDataTable("SELECT Name FROM Category", null);
             List<string> lcNames = new List<string>();
             foreach (DataRow dr in lcResult.Rows)
                 lcNames.Add((string)dr[0]);

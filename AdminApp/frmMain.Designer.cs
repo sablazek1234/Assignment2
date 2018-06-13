@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgProducts = new System.Windows.Forms.DataGridView();
             this.btnProducts = new System.Windows.Forms.Button();
             this.btnClientPurchases = new System.Windows.Forms.Button();
             this.btnEmployees = new System.Windows.Forms.Button();
@@ -37,16 +36,8 @@
             this.btnAddProducts = new System.Windows.Forms.Button();
             this.btnDeleteProducts = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgProducts)).BeginInit();
+            this.listProductsList = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
-            // dgProducts
-            // 
-            this.dgProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgProducts.Location = new System.Drawing.Point(12, 76);
-            this.dgProducts.Name = "dgProducts";
-            this.dgProducts.Size = new System.Drawing.Size(868, 183);
-            this.dgProducts.TabIndex = 0;
             // 
             // btnProducts
             // 
@@ -127,11 +118,21 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // listProductsList
+            // 
+            this.listProductsList.FormattingEnabled = true;
+            this.listProductsList.Location = new System.Drawing.Point(12, 76);
+            this.listProductsList.Name = "listProductsList";
+            this.listProductsList.Size = new System.Drawing.Size(868, 186);
+            this.listProductsList.TabIndex = 10;
+            this.listProductsList.SelectedIndexChanged += new System.EventHandler(this.listProductList_SelectedIndexChanged);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(892, 310);
+            this.Controls.Add(this.listProductsList);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnDeleteProducts);
             this.Controls.Add(this.btnAddProducts);
@@ -140,18 +141,14 @@
             this.Controls.Add(this.btnEmployees);
             this.Controls.Add(this.btnClientPurchases);
             this.Controls.Add(this.btnProducts);
-            this.Controls.Add(this.dgProducts);
             this.Name = "frmMain";
             this.Text = "frmMain";
-            ((System.ComponentModel.ISupportInitialize)(this.dgProducts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dgProducts;
         private System.Windows.Forms.Button btnProducts;
         private System.Windows.Forms.Button btnClientPurchases;
         private System.Windows.Forms.Button btnEmployees;
@@ -160,5 +157,6 @@
         private System.Windows.Forms.Button btnAddProducts;
         private System.Windows.Forms.Button btnDeleteProducts;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.ListBox listProductsList;
     }
 }

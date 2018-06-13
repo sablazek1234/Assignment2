@@ -51,5 +51,10 @@ namespace AdminApp
         {
 
         }
+
+        private void listProductList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
