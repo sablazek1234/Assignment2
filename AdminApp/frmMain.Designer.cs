@@ -93,6 +93,7 @@
             this.listProductsList.Name = "listProductsList";
             this.listProductsList.Size = new System.Drawing.Size(868, 251);
             this.listProductsList.TabIndex = 10;
+            this.listProductsList.SelectedIndexChanged += new System.EventHandler(this.listProductsList_DoubleClick);
             // 
             // frmMain
             // 

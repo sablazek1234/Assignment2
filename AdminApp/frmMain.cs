@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,8 +19,6 @@ namespace AdminApp
         //private clsProductsList _ProductList = new clsProductsList();
 
         public delegate void Notify(string prProductName);
-
-        public event Notify ProductNameChanged;
 
         public frmMain()
         {
@@ -42,7 +42,7 @@ namespace AdminApp
                 MessageBox.Show(ex.Message, "File retrieve error");
             }
             UpdateDisplay();
-            ProductNameChanged += new Notify(updateTitle);
+            //ProductNameChanged += new Notify(updateTitle);
             //ProductNameChanged(_ProductList.Name);
             //updateTitle(_ArtistList.GalleryName);
         }
@@ -56,9 +56,49 @@ namespace AdminApp
         public void UpdateDisplay()
         {
             listProductsList.DataSource = null;
+            listProductsList.DataSource = await ServiceClient.GetCategoryAsync();
             //string[] lcDisplayList = new string[_ProductList.Count];
             //_ProductList.Keys.CopyTo(lcDisplayList, 0);
             //listProductsList.DataSource = lcDisplayList;
+        }
+
+        public static class clsServiceClient
+        {
+            internal async static Task<List<string>> GetArtistNamesAsync()
+            {
+                using (HttpClient lcHttpClient = new HttpClient())
+                    return JsonConvert.DeserializeObject<List<string>>
+                        (await lcHttpClient.GetStringAsync("http://localhost:60000/api/gallery/GetCategory/"));
+            }
+        }
+
+        private void listProductsList_DoubleClick(object sender, EventArgs e)
+        {
+            frmProducts.Run(listProductsList.SelectedItem as string);
+        }
+
+        public static void Run(string prProductName)
+        {
+            frmProducts lcProductForm;
+
+            if (string.IsNullOrEmpty(prProductName) ||
+            !_ProductFormList.TryGetValue(prProductName, out lcProductForm))
+            {
+                lcProductForm = new frmProducts();
+                if (string.IsNullOrEmpty(prProductName))
+                    lcProductForm.SetDetails(new clsArtist());
+                else
+                {
+                    _ProductFormList.Add(prProductName, lcProductForm);
+                    lcProductForm.refreshFormFromDB(prProductName);
+                }
+            }
+
+            else
+            {
+                lcProductForm.Show();
+                lcProductForm.Activate();
+            }
         }
 
         private void btnAddProducts_Click(object sender, EventArgs e)
