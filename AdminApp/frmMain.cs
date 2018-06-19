@@ -12,34 +12,89 @@ namespace AdminApp
 {
     public partial class frmMain : Form
     {
+        private static readonly frmMain _Instance = new frmMain();
+
+        //private clsProductsList _ProductList = new clsProductsList();
+
+        public delegate void Notify(string prProductName);
+
+        public event Notify ProductNameChanged;
+
         public frmMain()
         {
             InitializeComponent();
         }
 
-        private void btnProducts_Click(object sender, EventArgs e)
+        public static frmMain Instance
         {
-
+            get { return frmMain._Instance; }
         }
 
-        private void btnClientPurchases_Click(object sender, EventArgs e)
+        private void frmMain_Load(object sender, EventArgs e)
         {
+            try
+            {
+                //_ProductList = clsProductsList.RetrieveProductList();
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "File retrieve error");
+            }
+            UpdateDisplay();
+            ProductNameChanged += new Notify(updateTitle);
+            //ProductNameChanged(_ProductList.Name);
+            //updateTitle(_ArtistList.GalleryName);
         }
 
-        private void btnEmployees_Click(object sender, EventArgs e)
+        private void updateTitle(string prCategoryName)
         {
+            if (!string.IsNullOrEmpty(prCategoryName))
+                Text = "Category " + prCategoryName;
+        }
 
+        public void UpdateDisplay()
+        {
+            listProductsList.DataSource = null;
+            //string[] lcDisplayList = new string[_ProductList.Count];
+            //_ProductList.Keys.CopyTo(lcDisplayList, 0);
+            //listProductsList.DataSource = lcDisplayList;
         }
 
         private void btnAddProducts_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //    frmProducts.Run(new clsProducts(_ProductList));
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "There was and error adding a new product");
+            //}
+        }
+
+        private void btnEditProducts_Click(object sender, EventArgs e)
         {
 
         }
 
         private void btnDeleteProducts_Click(object sender, EventArgs e)
         {
+            string lcRemove;
 
+            lcRemove = Convert.ToString(listProductsList.SelectedItem);
+            if (lcRemove != null && MessageBox.Show("Are you sure you want to delete this product?", "Deleting product", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                try
+                {
+                    //_ProductList.Remove(lcRemove);
+                    listProductsList.ClearSelected();
+                    UpdateDisplay();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "There was an error deleting athe product");
+                }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -47,14 +102,9 @@ namespace AdminApp
 
         }
 
-        private void btnLogOff_Click(object sender, EventArgs e)
+        private void btnQuit_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void listProductList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            Close();
         }
     }
 }

@@ -29,10 +29,7 @@
         private void InitializeComponent()
         {
             this.btnProducts = new System.Windows.Forms.Button();
-            this.btnClientPurchases = new System.Windows.Forms.Button();
-            this.btnEmployees = new System.Windows.Forms.Button();
-            this.btnLogOff = new System.Windows.Forms.Button();
-            this.lblAdmin = new System.Windows.Forms.Label();
+            this.btnQuit = new System.Windows.Forms.Button();
             this.btnAddProducts = new System.Windows.Forms.Button();
             this.btnDeleteProducts = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -41,52 +38,23 @@
             // 
             // btnProducts
             // 
-            this.btnProducts.Location = new System.Drawing.Point(12, 47);
+            this.btnProducts.Location = new System.Drawing.Point(93, 275);
             this.btnProducts.Name = "btnProducts";
-            this.btnProducts.Size = new System.Drawing.Size(75, 23);
+            this.btnProducts.Size = new System.Drawing.Size(79, 23);
             this.btnProducts.TabIndex = 1;
-            this.btnProducts.Text = "Products";
+            this.btnProducts.Text = "Edit Product";
             this.btnProducts.UseVisualStyleBackColor = true;
-            this.btnProducts.Click += new System.EventHandler(this.btnProducts_Click);
+            this.btnProducts.Click += new System.EventHandler(this.btnEditProducts_Click);
             // 
-            // btnClientPurchases
+            // btnQuit
             // 
-            this.btnClientPurchases.Location = new System.Drawing.Point(93, 47);
-            this.btnClientPurchases.Name = "btnClientPurchases";
-            this.btnClientPurchases.Size = new System.Drawing.Size(96, 23);
-            this.btnClientPurchases.TabIndex = 2;
-            this.btnClientPurchases.Text = "Client Purchases";
-            this.btnClientPurchases.UseVisualStyleBackColor = true;
-            this.btnClientPurchases.Click += new System.EventHandler(this.btnClientPurchases_Click);
-            // 
-            // btnEmployees
-            // 
-            this.btnEmployees.Location = new System.Drawing.Point(195, 47);
-            this.btnEmployees.Name = "btnEmployees";
-            this.btnEmployees.Size = new System.Drawing.Size(75, 23);
-            this.btnEmployees.TabIndex = 3;
-            this.btnEmployees.Text = "Employees";
-            this.btnEmployees.UseVisualStyleBackColor = true;
-            this.btnEmployees.Click += new System.EventHandler(this.btnEmployees_Click);
-            // 
-            // btnLogOff
-            // 
-            this.btnLogOff.Location = new System.Drawing.Point(805, 275);
-            this.btnLogOff.Name = "btnLogOff";
-            this.btnLogOff.Size = new System.Drawing.Size(75, 23);
-            this.btnLogOff.TabIndex = 5;
-            this.btnLogOff.Text = "Log Off";
-            this.btnLogOff.UseVisualStyleBackColor = true;
-            this.btnLogOff.Click += new System.EventHandler(this.btnLogOff_Click);
-            // 
-            // lblAdmin
-            // 
-            this.lblAdmin.AutoSize = true;
-            this.lblAdmin.Location = new System.Drawing.Point(13, 13);
-            this.lblAdmin.Name = "lblAdmin";
-            this.lblAdmin.Size = new System.Drawing.Size(35, 13);
-            this.lblAdmin.TabIndex = 6;
-            this.lblAdmin.Text = "label1";
+            this.btnQuit.Location = new System.Drawing.Point(805, 275);
+            this.btnQuit.Name = "btnQuit";
+            this.btnQuit.Size = new System.Drawing.Size(75, 23);
+            this.btnQuit.TabIndex = 5;
+            this.btnQuit.Text = "Quit";
+            this.btnQuit.UseVisualStyleBackColor = true;
+            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
             // 
             // btnAddProducts
             // 
@@ -100,7 +68,7 @@
             // 
             // btnDeleteProducts
             // 
-            this.btnDeleteProducts.Location = new System.Drawing.Point(93, 275);
+            this.btnDeleteProducts.Location = new System.Drawing.Point(178, 275);
             this.btnDeleteProducts.Name = "btnDeleteProducts";
             this.btnDeleteProducts.Size = new System.Drawing.Size(96, 23);
             this.btnDeleteProducts.TabIndex = 8;
@@ -110,7 +78,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(195, 275);
+            this.btnRefresh.Location = new System.Drawing.Point(280, 275);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 9;
@@ -121,11 +89,10 @@
             // listProductsList
             // 
             this.listProductsList.FormattingEnabled = true;
-            this.listProductsList.Location = new System.Drawing.Point(12, 76);
+            this.listProductsList.Location = new System.Drawing.Point(12, 15);
             this.listProductsList.Name = "listProductsList";
-            this.listProductsList.Size = new System.Drawing.Size(868, 186);
+            this.listProductsList.Size = new System.Drawing.Size(868, 251);
             this.listProductsList.TabIndex = 10;
-            this.listProductsList.SelectedIndexChanged += new System.EventHandler(this.listProductList_SelectedIndexChanged);
             // 
             // frmMain
             // 
@@ -136,24 +103,17 @@
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnDeleteProducts);
             this.Controls.Add(this.btnAddProducts);
-            this.Controls.Add(this.lblAdmin);
-            this.Controls.Add(this.btnLogOff);
-            this.Controls.Add(this.btnEmployees);
-            this.Controls.Add(this.btnClientPurchases);
+            this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.btnProducts);
             this.Name = "frmMain";
             this.Text = "frmMain";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button btnProducts;
-        private System.Windows.Forms.Button btnClientPurchases;
-        private System.Windows.Forms.Button btnEmployees;
-        private System.Windows.Forms.Button btnLogOff;
-        private System.Windows.Forms.Label lblAdmin;
+        private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Button btnAddProducts;
         private System.Windows.Forms.Button btnDeleteProducts;
         private System.Windows.Forms.Button btnRefresh;

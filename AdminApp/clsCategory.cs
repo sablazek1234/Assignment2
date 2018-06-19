@@ -8,61 +8,33 @@ using System.Threading.Tasks;
 namespace AdminApp
 {
     [Serializable()]
-    public class clsCategory : SortedDictionary<string, clsInventory>
+    public abstract class clsCategory
     {
-        private const string _FileName = "products.dat";
-        private string _ProductName;
+        private string _CategoryName;
+        private string _Description;
 
-    public void NewProduct(clsInventory prProduct)
+        public clsCategory()
         {
-            if (!string.IsNullOrEmpty(prProduct.Name))
-            {
-                Add(prProduct.Name, prProduct);
-            }
-            else
-                throw new Exception("No product name entered");
+            EditDetails();
         }
 
-    public decimal GetTotalValue()
-    {
-        decimal lcTotal = 0;
-        foreach (clsInventory lcProduct in Values)
-        {
-            lcTotal += lcProduct.Price;
-        }
-        return lcTotal;
-    }
+        public abstract void EditDetails();
 
-        public string ProductName
+        public override string ToString()
         {
-            get { return _ProductName; }
-            set { _ProductName = value; }
+            return _CategoryName;
         }
 
-        public static clsCategory RetrieveProductList()
+        public string CategoryName
         {
-            clsInventory lcProductList;
-            try
-            {
-                System.IO.FileStream lcFileStream = new System.IO.FileStream(_FileName, System.IO.FileMode.Open);
-                BinaryFormatter lcFormatter = new BinaryFormatter();
-                lcProductList = (clsInventory)lcFormatter.Deserialize(lcFileStream);
-                lcFileStream.Close();
-            }
-            catch (Exception ex)
-            {
-                lcProductList = new clsInventory();
-                throw new Exception("File Retrieve Error: " + ex.Message);
-            }
-            return lcProductList;
+            get { return _CategoryName; }
+            set { _CategoryName = value; }
         }
 
-        public void Save()
+        public string Description
         {
-            System.IO.FileStream lcFileStream = new System.IO.FileStream(_FileName, System.IO.FileMode.Create);
-            BinaryFormatter lcFormatter = new BinaryFormatter();
-            lcFormatter.Serialize(lcFileStream, this);
-            lcFileStream.Close();
+            get { return _Description; }
+            set { _Description = value; }
         }
-    }
+    }   
 }
