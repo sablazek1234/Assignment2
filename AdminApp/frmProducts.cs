@@ -19,6 +19,30 @@ namespace AdminApp
             InitializeComponent();
         }
 
+        public static void Run(string prProductName)
+        {
+            frmProducts lcProductForm;
+
+            if (string.IsNullOrEmpty(prProductName) ||
+            !_ProductFormList.TryGetValue(prProductName, out lcProductForm))
+            {
+                lcProductForm = new frmProducts();
+                if (string.IsNullOrEmpty(prProductName))
+                    lcProductForm.SetDetails(new DTO());
+                else
+                {
+                    _ProductFormList.Add(prProductName, lcProductForm);
+                    lcProductForm.refreshFormFromDB(prProductName);
+                }
+            }
+
+            else
+            {
+                lcProductForm.Show();
+                lcProductForm.Activate();
+            }
+        }
+
         //protected override void updateForm()
         //{
         //    base.updateForm();

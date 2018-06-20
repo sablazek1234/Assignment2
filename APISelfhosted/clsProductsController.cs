@@ -18,7 +18,7 @@ namespace APISelfhosted
             return lcNames;
         }
 
-        public clsArtist GetArtist(string Name)
+        public DTO GetProduct(string Name)
 
         {
 
@@ -28,11 +28,11 @@ namespace APISelfhosted
 
             DataTable lcResult =
 
-            clsDBConnection.GetDataTable("SELECT * FROM Artist WHERE Name = @Name", par);
+            clsDBConnection.GetDataTable("SELECT * FROM Products WHERE Name = @Name", par);
 
             if (lcResult.Rows.Count > 0)
 
-                return new clsArtist()
+                return new DTO()
 
                 {
 

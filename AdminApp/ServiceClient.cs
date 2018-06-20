@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AdminApp
 {
-    class clsServiceClient
+    class ServiceClient
     {
         internal async static Task<List<string>> GetArtistNamesAsync()
         {

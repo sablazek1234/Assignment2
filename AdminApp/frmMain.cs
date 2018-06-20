@@ -77,29 +77,7 @@ namespace AdminApp
             frmProducts.Run(listProductsList.SelectedItem as string);
         }
 
-        public static void Run(string prProductName)
-        {
-            frmProducts lcProductForm;
-
-            if (string.IsNullOrEmpty(prProductName) ||
-            !_ProductFormList.TryGetValue(prProductName, out lcProductForm))
-            {
-                lcProductForm = new frmProducts();
-                if (string.IsNullOrEmpty(prProductName))
-                    lcProductForm.SetDetails(new clsArtist());
-                else
-                {
-                    _ProductFormList.Add(prProductName, lcProductForm);
-                    lcProductForm.refreshFormFromDB(prProductName);
-                }
-            }
-
-            else
-            {
-                lcProductForm.Show();
-                lcProductForm.Activate();
-            }
-        }
+        
 
         private void btnAddProducts_Click(object sender, EventArgs e)
         {
