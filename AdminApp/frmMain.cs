@@ -12,13 +12,15 @@ using System.Windows.Forms;
 
 namespace AdminApp
 {
-    public partial class frmMain : Form
+    public sealed partial class frmMain : Form
     {
         private static readonly frmMain _Instance = new frmMain();
 
         //private clsProductsList _ProductList = new clsProductsList();
 
         public delegate void Notify(string prProductName);
+
+        public event Notify ProductNameChanged;
 
         public frmMain()
         {
@@ -41,7 +43,7 @@ namespace AdminApp
             {
                 MessageBox.Show(ex.Message, "File retrieve error");
             }
-            UpdateDisplay();
+            UpdateDisplayAsync();
             //ProductNameChanged += new Notify(updateTitle);
             //ProductNameChanged(_ProductList.Name);
             //updateTitle(_ArtistList.GalleryName);
@@ -53,10 +55,10 @@ namespace AdminApp
                 Text = "Category " + prCategoryName;
         }
 
-        public void UpdateDisplay()
+        public async Task UpdateDisplayAsync()
         {
             listProductsList.DataSource = null;
-            listProductsList.DataSource = await ServiceClient.GetCategoryAsync();
+            listProductsList.DataSource = await ServiceClient.GetCategoryNameAsync();
             //string[] lcDisplayList = new string[_ProductList.Count];
             //_ProductList.Keys.CopyTo(lcDisplayList, 0);
             //listProductsList.DataSource = lcDisplayList;
@@ -74,21 +76,32 @@ namespace AdminApp
 
         private void listProductsList_DoubleClick(object sender, EventArgs e)
         {
-            frmProducts.Run(listProductsList.SelectedItem as string);
+            string lcKey;
+
+            lcKey = Convert.ToString(listProductsList.SelectedItem);
+            if (lcKey != null)
+                try
+                {
+                    frmProducts.Run(lcKey);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "This should never occur");
+                }
         }
 
         
 
         private void btnAddProducts_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    frmProducts.Run(new clsProducts(_ProductList));
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "There was and error adding a new product");
-            //}
+            try
+            {
+                frmProducts.Run(null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error adding new product");
+            }
         }
 
         private void btnEditProducts_Click(object sender, EventArgs e)
@@ -106,7 +119,7 @@ namespace AdminApp
                 {
                     //_ProductList.Remove(lcRemove);
                     listProductsList.ClearSelected();
-                    UpdateDisplay();
+                    UpdateDisplayAsync();
 
                 }
                 catch (Exception ex)

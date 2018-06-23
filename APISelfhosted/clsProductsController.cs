@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static APISelfhosted.DTO;
 
 namespace APISelfhosted
 {
@@ -18,7 +19,7 @@ namespace APISelfhosted
             return lcNames;
         }
 
-        public DTO GetProduct(string Name)
+        public clsProducts GetProduct(string Name)
 
         {
 
@@ -32,22 +33,16 @@ namespace APISelfhosted
 
             if (lcResult.Rows.Count > 0)
 
-                return new DTO()
-
+                return new clsProducts()
                 {
-
                     Name = (string)lcResult.Rows[0]["Name"],
-
-                    Speciality = (string)lcResult.Rows[0]["Speciality"],
-
-                    Phone = (string)lcResult.Rows[0]["Phone"]
-
+                    Origin = (string)lcResult.Rows[0]["Origin"],
+                    ProductCondition = (string)lcResult.Rows[0]["ProductCondition"],
+                    Brand = (string)lcResult.Rows[0]["Brand"],
+                    Quantity = (int)lcResult.Rows[0]["Quantity"],
                 };
-
             else
-
                 return null;
-
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdminApp
+namespace APISelfhosted
 {
     class DTO
     {
@@ -23,12 +23,6 @@ namespace AdminApp
             public string ProductCondition { get; set; }
             public string Brand { get; set; }
             public int Quantity { get; set; }
-            public decimal Price { get; set; }
-
-            public static clsProducts NewProduct(string prChoice)
-            {
-                return new clsProducts() { Name = String.ToUpper(prChoice) };
-            }
         }
 
         public class clsOrderDetails
