@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="CustomerApp.pgProductDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CustomerApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <ContentControl x:Name="ctcWorkSpecs" Content="ContentControl" HorizontalAlignment="Center" Margin="0,334,0,0" VerticalAlignment="Top" Height="516" Width="723"/>
+        <Button x:Name="btnOK" Content="Ok" HorizontalAlignment="Left" Margin="476,878,0,0" VerticalAlignment="Top" Height="94" Width="179" Click="btnOK_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="852,878,0,0" VerticalAlignment="Top" Height="94" Width="179" Click="btnCancel_Click"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="389,60,0,0" Text="Name:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="458,54,0,0" Text="TextBox" VerticalAlignment="Top" Width="654"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="389,104,0,0" Text="Origin:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbOrigin" HorizontalAlignment="Left" Margin="458,98,0,0" Text="TextBox" VerticalAlignment="Top" Width="654"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="389,152,0,0" Text="Product Condition:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbProductCondition" HorizontalAlignment="Left" Margin="531,146,0,0" Text="TextBox" VerticalAlignment="Top" Width="581"/>
+        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="389,198,0,0" Text="Brand:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbBrand" HorizontalAlignment="Left" Margin="451,192,0,0" Text="TextBox" VerticalAlignment="Top" Width="661"/>
+        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="389,244,0,0" Text="Quantity:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbQuantity" HorizontalAlignment="Left" Margin="458,238,0,0" Text="TextBox" VerticalAlignment="Top" Width="654"/>
+
+    </Grid>
+</Page>

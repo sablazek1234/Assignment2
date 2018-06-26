@@ -7,38 +7,102 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static AdminApp.DTO;
 
 namespace AdminApp
 {
-    public sealed partial class frmProducts : AdminApp.frmProductDetails
+    public partial class frmProducts : Form
     {
-        private static readonly frmProducts Instance = new frmProducts();
+        private clsProducts _Products;
 
         public frmProducts()
         {
             InitializeComponent();
         }
 
-        public static void Run(clsProducts prProducts)
+        private static Dictionary<string, frmProducts> _ProductFormList =
+            new Dictionary<string, frmProducts>();
+
+        public void SetDetails(clsProducts prProducts)
         {
-            Instance.SetDetails(prProducts);
+            _Products = prProducts;
+            tbProductName.Enabled = string.IsNullOrEmpty(_Products.Name);
+            updateForm();
+            frmMain.Instance.ProductNameChanged += new frmMain.Notify(updateTitle);
+            //updateTitle(_Artist.ArtistList.GalleryName);
+            Show();
         }
 
-        protected override void updateForm()
+        public static void Run(string prProductName)
         {
-            base.updateForm();
+            frmProducts lcProductForm;
+            if (string.IsNullOrEmpty(prProductName) ||
+            !_ProductFormList.TryGetValue(prProductName, out lcProductForm))
+            {
+                lcProductForm = new frmProducts();
+                if (string.IsNullOrEmpty(prProductName))
+                    lcProductForm.SetDetails(new clsProducts());
+                else
+                {
+                    _ProductFormList.Add(prProductName, lcProductForm);
+                    lcProductForm.refreshFormFromDB(prProductName);
+                }
+            }
+            else
+            {
+                lcProductForm.Show();
+                lcProductForm.Activate();
+            }
+        }
+
+        private async void refreshFormFromDB(string prProductName)
+        {
+            SetDetails(await ServiceClient.GetProductAsync(prProductName));
+        }
+
+        protected void updateForm()
+        {
+            //base.updateForm();
             tbProductName.Text = _Products.Name.ToString();
             tbQuantity.Text = _Products.Quantity.ToString();
             tbPrice.Text = _Products.Price.ToString();
         }
 
-        protected override void pushData()
+        protected void pushData()
         {
-            base.pushData();
+            //base.pushData();
             _Products.Name = tbProductName.Text;
             _Products.Quantity = Convert.ToUInt16(tbQuantity.Text);
             _Products.Price = Convert.ToDecimal(tbPrice.Text);
+        }
+
+        private void updateTitle(string prProductName)
+        {
+            if (!string.IsNullOrEmpty(prProductName))
+                Text = "Product Details - " + prProductName;
+        }
+
+        private async Task btnOK_ClickAsync(object sender, EventArgs e)
+        {
+            if (isValid())
+            {
+                pushData();
+                if (tbProductName.Enabled)
+                    MessageBox.Show(await ServiceClient.InsertProductAsync(_Products));
+                else
+                    MessageBox.Show(await ServiceClient.UpdateProductAsync(_Products));
+
+                Close();
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private Boolean isValid()
+        {
+            return true;
         }
     }
 }

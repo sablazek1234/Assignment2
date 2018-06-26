@@ -11,7 +11,7 @@ namespace APISelfhosted
 {
     class clsDBConnection
     {
-        private static ConnectionStringSettings ConnectionStringSettings = ConfigurationManager.ConnectionStrings["products"];
+        private static ConnectionStringSettings ConnectionStringSettings = ConfigurationManager.ConnectionStrings["ProductsDatabase"];
         private static DbProviderFactory ProviderFactory = DbProviderFactories.GetFactory(ConnectionStringSettings.ProviderName);
         private static string ConnectionStr = ConnectionStringSettings.ConnectionString;
         public static DataTable GetDataTable(string prSQL, Dictionary<string, Object> prPars) {

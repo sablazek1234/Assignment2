@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static AdminApp.DTO;
 
 namespace AdminApp
 {
@@ -18,7 +17,7 @@ namespace AdminApp
             InitializeComponent();
         }
 
-        protected clsProducts _Products;
+        public clsProducts _Products;
 
         public void SetDetails(clsProducts prProducts)
         {

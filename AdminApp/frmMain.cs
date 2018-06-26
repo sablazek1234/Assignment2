@@ -16,11 +16,9 @@ namespace AdminApp
     {
         private static readonly frmMain _Instance = new frmMain();
 
-        //private clsProductsList _ProductList = new clsProductsList();
+        public event Notify ProductNameChanged;
 
         public delegate void Notify(string prProductName);
-
-        public event Notify ProductNameChanged;
 
         public frmMain()
         {
@@ -34,43 +32,28 @@ namespace AdminApp
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            try
-            {
-                //_ProductList = clsProductsList.RetrieveProductList();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "File retrieve error");
-            }
-            UpdateDisplayAsync();
-            //ProductNameChanged += new Notify(updateTitle);
-            //ProductNameChanged(_ProductList.Name);
-            //updateTitle(_ArtistList.GalleryName);
+            UpdateDisplay();
         }
 
-        private void updateTitle(string prCategoryName)
+        private void updateTitle(string prProductName)
         {
-            if (!string.IsNullOrEmpty(prCategoryName))
-                Text = "Category " + prCategoryName;
+            if (!string.IsNullOrEmpty(prProductName))
+                Text = "Product " + prProductName;
         }
 
-        public async Task UpdateDisplayAsync()
+        public async Task UpdateDisplay()
         {
             listProductsList.DataSource = null;
-            listProductsList.DataSource = await ServiceClient.GetCategoryNameAsync();
-            //string[] lcDisplayList = new string[_ProductList.Count];
-            //_ProductList.Keys.CopyTo(lcDisplayList, 0);
-            //listProductsList.DataSource = lcDisplayList;
+            listProductsList.DataSource = await ServiceClient.GetProductNameAsync();
         }
 
         public static class clsServiceClient
         {
-            internal async static Task<List<string>> GetArtistNamesAsync()
+            internal async static Task<List<string>> GetProductAsync()
             {
                 using (HttpClient lcHttpClient = new HttpClient())
                     return JsonConvert.DeserializeObject<List<string>>
-                        (await lcHttpClient.GetStringAsync("http://localhost:60000/api/gallery/GetCategory/"));
+                        (await lcHttpClient.GetStringAsync("http://localhost:60064/api/Product/GetProduct/"));
             }
         }
 
@@ -109,7 +92,7 @@ namespace AdminApp
 
         }
 
-        private void btnDeleteProducts_Click(object sender, EventArgs e)
+        private async void btnDeleteProducts_Click(object sender, EventArgs e)
         {
             string lcRemove;
 
@@ -119,12 +102,12 @@ namespace AdminApp
                 {
                     //_ProductList.Remove(lcRemove);
                     listProductsList.ClearSelected();
-                    UpdateDisplayAsync();
+                    UpdateDisplay();
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "There was an error deleting athe product");
+                    MessageBox.Show(ex.Message, "There was an error deleting the product");
                 }
         }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APISelfhosted
+namespace AdminApp
 {
         public class clsCategory
         {
@@ -21,6 +21,12 @@ namespace APISelfhosted
             public string ProductCondition { get; set; }
             public string Brand { get; set; }
             public int Quantity { get; set; }
+            public decimal Price { get; set; }
+
+            //public static clsProducts NewProduct(string prChoice)
+            //{
+            //    return new clsProducts() { Name = String.ToUpper(prChoice) };
+            //}
         }
 
         public class clsOrderDetails
@@ -31,4 +37,4 @@ namespace APISelfhosted
             public float Price { get; set; }
             public int Quantity { get; set; }
         }
-}
+    }

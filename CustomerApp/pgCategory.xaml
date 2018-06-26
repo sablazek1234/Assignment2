@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="CustomerApp.pgCategory"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CustomerApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="133,65,0,0" Text="Category:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbCategory" HorizontalAlignment="Left" Margin="216,59,0,0" Text="TextBox" VerticalAlignment="Top" Width="402"/>
+        <ListBox x:Name="listCategory" HorizontalAlignment="Left" Height="514" Margin="133,237,0,0" VerticalAlignment="Top" Width="485"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="133,123,0,0" Text="Description:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbDescription" HorizontalAlignment="Left" Margin="236,117,0,0" Text="TextBox" VerticalAlignment="Top" Width="382"/>
+        <Button x:Name="btnOK" Content="OK" HorizontalAlignment="Left" Margin="1108,906,0,0" VerticalAlignment="Top" Height="64" Width="149" Click="btnOK_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="1312,906,0,0" VerticalAlignment="Top" Height="64" Width="133" Click="btnCancel_Click"/>
+
+    </Grid>
+</Page>

@@ -14,36 +14,21 @@ namespace AdminApp
         {
             using (HttpClient lcHttpClient = new HttpClient())
                 return JsonConvert.DeserializeObject<List<string>>
-                    (await lcHttpClient.GetStringAsync("http://localhost:60064/api/Product/GetCategory/"));
+                    (await lcHttpClient.GetStringAsync("http://localhost:60000/api/gallery/GetCategory/"));
         }
 
-        internal async static Task<clsProducts> GetCategoryAsync(string prCategoryName)
+        internal async static Task<clsProducts> GetCategoryAsync(string prArtistName)
         {
             using (HttpClient lcHttpClient = new HttpClient())
                 return JsonConvert.DeserializeObject<clsProducts>
-            (await lcHttpClient.GetStringAsync("http://localhost:60064/api/Product/GetCategory?Name=" + prCategoryName));
-
-        }
-
-        internal async static Task<List<string>> GetProductNameAsync()
-        {
-            using (HttpClient lcHttpClient = new HttpClient())
-                return JsonConvert.DeserializeObject<List<string>>
-                    (await lcHttpClient.GetStringAsync("http://localhost:60064/api/Product/GetProduct/"));
-        }
-
-        internal async static Task<clsProducts> GetProductAsync(string prProductName)
-        {
-            using (HttpClient lcHttpClient = new HttpClient())
-                return JsonConvert.DeserializeObject<clsProducts>
-            (await lcHttpClient.GetStringAsync("http://localhost:60064/api/Product/GetProduct?Name=" + prProductName));
+            (await lcHttpClient.GetStringAsync("http://localhost:60000/api/gallery/GetArtist?Name=" + prArtistName));
 
         }
 
         private async static Task<string> InsertOrUpdateAsync<TItem>(TItem prItem, string prUrl, string prRequest)
         {
             using (HttpRequestMessage lcReqMessage = new HttpRequestMessage(new HttpMethod(prRequest), prUrl))
-            using (lcReqMessage.Content = new StringContent(JsonConvert.SerializeObject(prItem), Encoding.Default, "application/json"))
+            using (lcReqMessage.Content = new StringContent(JsonConvert.SerializeObject(prItem), Encoding.UTF8, "application/json"))
             using (HttpClient lcHttpClient = new HttpClient())
             {
                 HttpResponseMessage lcRespMessage = await lcHttpClient.SendAsync(lcReqMessage);
@@ -53,22 +38,22 @@ namespace AdminApp
 
         internal async static Task<string> UpdateCategoryAsync(clsCategory _Category)
         {
-            return await InsertOrUpdateAsync(_Category, "http://localhost:60064/api/Product/PutCategoryWork", "PUT");
+            return await InsertOrUpdateAsync(_Category, "http://localhost:60000/api/gallery/PutArtWork", "PUT");
         }
 
         internal async static Task<string> InsertCategoryAsync(clsCategory _Category)
         {
-            return await InsertOrUpdateAsync(_Category, "http://localhost:60064/api/Product/PostCategory", "POST");
+            return await InsertOrUpdateAsync(_Category, "http://localhost:60000/api/gallery/PostArtWork", "POST");
         }
 
         internal async static Task<string> InsertProductAsync(clsProducts prProducts)
         {
-            return await InsertOrUpdateAsync(prProducts, "http://localhost:60064/api/Product/PostProduct", "POST");
+            return await InsertOrUpdateAsync(prProducts, "http://localhost:60000/api/gallery/PostProduct", "POST");
         }
 
         internal async static Task<string> UpdateProductAsync(clsProducts prProducts)
         {
-            return await InsertOrUpdateAsync(prProducts, "http://localhost:60064/api/Product/PutProduct", "PUT");
+            return await InsertOrUpdateAsync(prProducts, "http://localhost:60000/api/gallery/PutArtist", "PUT");
         }
 
         internal async static Task<string> DeleteCategoryAsync(clsCategory prCategory)
@@ -76,7 +61,7 @@ namespace AdminApp
             using (HttpClient lcHttpClient = new HttpClient())
             {
                 HttpResponseMessage lcRespMessage = await lcHttpClient.DeleteAsync
-            ($"http://localhost:60064/api/Product/DeleteACategory?WorkName={prCategory.CategoryName}&ProductName={prCategory.CategoryName}");
+            ($"http://localhost:60000/api/gallery/DeleteArtWork?WorkName={prCategory.CategoryName}&ArtistName={prCategory.CategoryName}");
                 return await lcRespMessage.Content.ReadAsStringAsync();
             }
 
@@ -87,7 +72,7 @@ namespace AdminApp
             using (HttpClient lcHttpClient = new HttpClient())
             {
                 HttpResponseMessage lcRespMessage = await lcHttpClient.DeleteAsync
-            ($"http://localhost:60064/api/Product/DeleteAProduct?Name={prName}");
+            ($"http://localhost:60000/api/gallery/DeleteAProduct?Name={prName}");
                 return await lcRespMessage.Content.ReadAsStringAsync();
             }
             throw new NotImplementedException();
